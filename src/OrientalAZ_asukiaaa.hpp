@@ -90,6 +90,7 @@ struct DriverInputCommandUnified {
 
 class Core {
  public:
+  uint32_t maxSpeed = 500000;
   Core(HardwareSerial *serial, uint8_t address, uint16_t dePin, uint16_t rePin)
       : createdModbus(true) {
     this->address = address;

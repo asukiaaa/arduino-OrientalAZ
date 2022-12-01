@@ -22,12 +22,11 @@ void loop() {
       OrientalAZ_asukiaaa::DirectOperationType::ContinuousOperationBySpeed);
   stepMotor.writeDirectOperationSpeed(1000);
   delay(3000);
+  // stepMotor.writeDirectOperationSpeed(stepMotor.maxSpeed, false);
   stepMotor.writeDirectOperationSpeed(5000, false);
   delay(3000);
+  stepMotor.writeDirectOperationSpeed(1000, false);
+  delay(3000);
   stepMotor.writeDirectOperationSpeed(-1000, false);
-  delay(3000);
-  stepMotor.writeDirectOperationSpeed(-5000, false);
-  delay(3000);
-  stepMotor.writeDirectOperationSpeed(0, false);
   delay(3000);
 }
