@@ -52,5 +52,4 @@ MIT
 
 ## References
 
-- Manuals [ja](https://www.orientalmotor.co.jp/download/manual_search.action?productName=AZD-KD&searchPattern=1&gengoId=1), [en](https://www.orientalmotor.co.jp/download/manual_search.action?productName=AZD-KD&searchPattern=1&gengoId=2&x=51&y=29)
-[HM-60252J](https://www.orientalmotor.co.jp/download/2dialog.action?serviceTypeNo=18&senimotoId=1&senimotoUrl=%2fproducts%2fdetail.action%3fhinmei%3dAZD-KD&hinmei=AZD-KD&gengo=JP&documentType=5&fileName=%2ffile_addon_auth%2fproducts%2fst%2fmanual%2fHM-60252J.pdf&gengoId=1) or [HM-60262E](https://www.orientalmotor.co.jp/download/2dialog.action?serviceTypeNo=18&senimotoId=1&senimotoUrl=%2fproducts%2fdetail.action%3fhinmei%3dAZD-KD&hinmei=AZD-KD&gengo=JP&documentType=5&fileName=%2ffile_addon_auth%2fproducts%2fst%2fmanual%2fHM-60262E.pdf&gengoId=2) has information about modbus communication.
+- [HM-60252J (Ja)](https://www.orientalmotor.co.jp/system/files/product_detail/manual/HM-60252J.pdf) or [HM-60262E (En)](https://www.orientalmotor.com/products/pdfs/opmanuals/HM-60262E.pdf) has information about modbus communication.
