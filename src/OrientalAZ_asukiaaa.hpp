@@ -98,13 +98,13 @@ class Core : public OrientalCommon_asukiaaa::StepMotorDirectOperation::Core {
     modbus->msSilentInterval = getMsSilentInterval(baudrate);
   }
 
-  uint8_t readAlarm(uint16_t *alarm) {
-    return modbus->readRegistersBy16t(address, Registers::alarmL, alarm, 1);
+  uint8_t readAlarm(uint32_t *alarm) {
+    return modbus->readRegistersBy32t(address, Registers::alarmL, alarm, 1);
   }
 
-  uint8_t readLoadTorque(int16_t *torque) {
-    return modbus->readRegistersBy16t(address, Registers::loadTorqueL,
-                                      (uint16_t *)torque, 1);
+  uint8_t readLoadTorque(int32_t *torque) {
+    return modbus->readRegistersBy32t(address, Registers::loadTorqueL,
+                                      (uint32_t *)torque, 1);
   }
 
   uint8_t readLoadHz(int32_t *hz) {
@@ -193,14 +193,6 @@ class CoreCompatibleForBLx : public Core,
     Core::begin(baudrate, config);
   }
   void beginWithoutModbus() { Core::beginWithoutModbus(); }
-  uint8_t writeForward() {
-    forwarding = true;
-    return 0;
-  }
-  uint8_t writeReverse() {
-    forwarding = false;
-    return 0;
-  }
   uint8_t writeLock() {
     return writeSpeed(0);
     // return writeCommandStop();
@@ -209,30 +201,24 @@ class CoreCompatibleForBLx : public Core,
     return writeSpeed(0);
     // return writeCommandStop();
   }
-  uint8_t writeSpeed(uint16_t speed) {
-    uint8_t result = 0;
-    int32_t speedInt32t =
-        speed * numMultiplyToDecideHzBySpeed * (forwarding ? 1 : -1);
+  uint8_t writeSpeed32t(int32_t speed) {
+    int32_t speedInt32t = speed * numMultiplyToDecideHzBySpeed;
     static const uint32_t rateDefault = 1000000;
     uint32_t rate = rateDefault / 50;
-    result = Core::writeDirectOperation(
+    return Core::writeDirectOperation(
         OrientalCommon_asukiaaa::StepMotorDirectOperation::DirectOperation{
-            .position = speedInt32t * 10,
-            .speed = speedInt32t,
-            .changeRate = rate,
-            .stopRate = rate});
-    return result;
+            .speed = speedInt32t, .changeRate = rate, .stopRate = rate});
   }
-  uint8_t readAlarm(uint16_t *alarm) { return Core::readAlarm(alarm); }
-  uint8_t readLoadTorque(uint16_t *torquePercent) {
-    int16_t torque;
+  uint8_t readAlarmU32t(uint32_t *alarm) { return Core::readAlarm(alarm); }
+  uint8_t readLoadTorquePercent(float *torquePercent) {
+    int32_t torque;
     auto result = Core::readLoadTorque(&torque);
     if (result == 0) {
-      *torquePercent = abs(torque);
+      *torquePercent = torque;
     }
     return result;
   }
-  uint8_t readFeedbackSpeed(int32_t *speed) {
+  uint8_t readFeedbackSpeed32t(int32_t *speed) {
     int32_t hz;
     auto result = Core::readLoadHz(&hz);
     if (result == 0) {
@@ -240,13 +226,12 @@ class CoreCompatibleForBLx : public Core,
     }
     return result;
   }
-  uint8_t writeSpeedControlModeAsDigitalIfNot() { return 0; };
+  uint8_t writeSetupConfiglIfNeeded() { return 0; };
   rs485_asukiaaa::ModbusRtu::Central *getModbus() { return Core::getModbus(); }
   uint32_t getRpmMin() { return 0; }
   uint32_t getRpmMax() { return hzMax / numMultiplyToDecideHzBySpeed; }
 
  private:
-  bool forwarding = true;
   uint32_t hzMax;
   float numMultiplyToDecideHzBySpeed;
 };
