@@ -103,7 +103,7 @@ class Core : public OrientalCommon_asukiaaa::StepMotorDirectOperation::Core {
   }
 
   uint8_t readLoadTorque(int32_t *torque) {
-    return modbus->readRegistersBy32t(address, Registers::loadTorqueL,
+    return modbus->readRegistersBy32t(address, Registers::loadTorqueH,
                                       (uint32_t *)torque, 1);
   }
 
