@@ -226,7 +226,7 @@ class CoreCompatibleForBLx : public Core,
     }
     return result;
   }
-  uint8_t writeSetupConfiglIfNeeded() { return 0; };
+  uint8_t writeSetupConfigIfNeeded() { return 0; };
   rs485_asukiaaa::ModbusRtu::Central *getModbus() { return Core::getModbus(); }
   uint32_t getRpmMin() { return 0; }
   uint32_t getRpmMax() { return hzMax / numMultiplyToDecideHzBySpeed; }
