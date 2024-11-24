@@ -7,6 +7,7 @@ A library for arduino to use step motor driver AZ series by Orientalmotor.
 ### Baud
 
 Number | Baudrate
+-- | --
 0 | 9600
 1 | 19200
 2 | 38400
@@ -20,6 +21,7 @@ Number | Baudrate
 ### SW1
 
 Number | Role
+-- | --
 1 | Address config. Plus 16 when on.
 2 | Protocol select: on is modbus, off is network converter
 3 | RS485 end resistor
@@ -37,6 +39,7 @@ If SW1-1 is on, address become plus 16.
 ### CN7, CN8 (RJ45)
 
 Number | Role
+-- | --
 1 | Not used
 2 | GND
 3 | RS485 plus
